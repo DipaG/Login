@@ -1,0 +1,74 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow
+ */
+
+import React from 'react';
+import ApolloClient,{gql} from 'apollo-boost';
+import {InMemoryCache} from 'apollo-cache-inmemory';
+import {createHttpLink, HttpLink} from 'apollo-link-http';
+// import gql from 'graphql-tag';
+import 'cross-fetch/polyfill';
+
+import {
+  StyleSheet,
+  View,
+  Text,
+} from 'react-native';
+
+const restLink = new HttpLink({
+  uri: 'https://api.github.com/graphql',
+  request: operation => {
+    operation.setContext({
+      headers:{
+        authorization:`Bearer 1a8c0a870101ea9aa8cf174d341afc8abf37e220`
+      }
+    })
+  }
+})
+const client = new ApolloClient({
+  uri: 'https://api.github.com/graphql',
+  request: operation => {
+    operation.setContext({
+      headers: {
+        authorization: `Bearer 0cfb252002410617539b0ea08a7562dcea3a2c94`,
+      },
+    });
+  },
+});
+
+const Headlines = gql`
+{viewer { 
+  login
+}}
+`;
+class App extends React.Component{
+  constructor(){
+    super()
+  }
+  componentDidMount(){
+    client.query({
+      query:Headlines
+    }).then(console.log).catch(error=>console.log(error))
+  }
+  render(){
+    return (
+      <>
+        <View>
+          <Text>Hello</Text>
+        </View>
+      </>
+    );
+  }
+
+};
+
+const styles = StyleSheet.create({
+
+
+});
+
+export default App;
