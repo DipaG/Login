@@ -48,7 +48,7 @@ class Login extends React.Component{
             <View style= {{flex:1, marginTop:50}}>
                 <CardView>
                     <CardViewSection>
-                        <Text style = {textStyle}>Username - USername</Text>
+                        <Text style = {textStyle}>Username</Text>
 
                         <TextInput 
                         defaultValue={this.state.email}
